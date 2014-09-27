@@ -6,7 +6,7 @@ signals
 - Signals is tiny. Header-only.
 - Signals is cross-platform.
 - Signals is stand-alone.
-- Signals is MIT licensed.
+- Signals is BOOST licensed.
 
 ### some theory
 ```

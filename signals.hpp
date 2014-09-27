@@ -1,5 +1,5 @@
 // simple logic for signals
-// - rlyeh, mit licensed
+// - rlyeh, BOOST licensed
 
 /*
     digital signals (~logic buttons) (~quadbools)
