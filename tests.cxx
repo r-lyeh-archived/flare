@@ -7,6 +7,11 @@ enum {
 };
 
 int main() {
+    assert(  is_off(MY_FLAG) );
+    assert( !is_up(MY_FLAG) );
+    assert( !is_on(MY_FLAG) );
+    assert( !is_down(MY_FLAG) );
+
     frame();
     assert(  is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
@@ -14,35 +19,35 @@ int main() {
     assert( !is_down(MY_FLAG) );
 
     frame();
-    transition( MY_FLAG, true );
+    set( MY_FLAG );
     assert( !is_off(MY_FLAG) );
     assert(  is_up(MY_FLAG) );
     assert( !is_on(MY_FLAG) );
     assert( !is_down(MY_FLAG) );
 
     frame();
-    transition( MY_FLAG, true );
+    set( MY_FLAG );
     assert( !is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
     assert(  is_on(MY_FLAG) );
     assert( !is_down(MY_FLAG) );
 
     frame();
-    transition( MY_FLAG, false );
+    clear( MY_FLAG );
     assert( !is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
     assert( !is_on(MY_FLAG) );
     assert(  is_down(MY_FLAG) );
 
     frame();
-    transition( MY_FLAG, false );
+    clear( MY_FLAG );
     assert(  is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
     assert( !is_on(MY_FLAG) );
     assert( !is_down(MY_FLAG) );
 
     frame();
-    transition( MY_FLAG, false );
+    clear( MY_FLAG );
     assert(  is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
     assert( !is_on(MY_FLAG) );
@@ -62,7 +67,7 @@ int main() {
     assert( !is_down(MY_FLAG) );
 
     frame();
-    set( MY_FLAG );
+    set( MY_FLAG, false );
     assert(  is_off(MY_FLAG) );
     assert( !is_up(MY_FLAG) );
     assert( !is_on(MY_FLAG) );

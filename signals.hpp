@@ -43,20 +43,21 @@ struct signals {
     }
 };
 
+// immediate API, no up/down interstates
 namespace {
-    // setters
-    static inline void set( int t ) { // quick, without up/down interstates
-        auto &then = signals::any()[1][t], &now = signals::any()[0][t];
-        then = ( now = now ^ true );
+    // getter
+    static inline bool get( int t ) {              
+        return signals::any()[0][t];
     }
-    static inline void transition( int t, bool value ) { // complete, with up/down interstates
-        signals::any().front()[t] = value;
+    // setter
+    static inline void set( int t, bool value ) {
+        signals::any()[1][t] = value;
+        signals::any()[0][t] = value;
     }
-    static inline void toggle( int t ) {
-        auto &now = signals::any()[0][t];
-        now = now ^ true;
-    }
+}
 
+// transitional API, featuring up/down interstates
+namespace {
     // getters
     static inline bool is_off( int t ) {
         return signals::check(t,0,0);
@@ -71,13 +72,43 @@ namespace {
         return signals::check(t,1,0);
     }
 
-    static inline bool is_pushed( int t ) {
+    static inline bool is_push( int t ) {
         return signals::check(t,0,1,0);
     }
-    static inline bool is_pushed2x( int t ) {
+    static inline bool is_push2x( int t ) {
         return signals::check(t,0,1,0,1,0);
     }
 
+    // aliases for getters
+    static bool (&is_unset)( int t ) =     is_off;
+    static bool (&is_inactive)( int t ) =  is_off;
+    static bool (&is_disabled)( int t ) =  is_off;
+
+    static bool (&is_raised)( int t ) =    is_up;
+    static bool (&is_triggered)( int t ) = is_up;
+
+    static bool (&is_set)( int t ) =       is_on;
+    static bool (&is_active)( int t ) =    is_on;
+    static bool (&is_enabled)( int t ) =   is_on;
+
+    static bool (&is_dropped)( int t ) =   is_down;
+    static bool (&is_released)( int t ) =  is_down;
+
+    // setters
+    static inline void clear( int t ) {
+        signals::any()[0][t] = 0;
+    }
+    static inline void set( int t ) {
+        signals::any()[0][t] = 1;
+    }
+    static inline void toggle( int t ) {
+        auto &now = signals::any()[0][t];
+        now = now ^ true;
+    }
+}
+
+// shared API
+namespace {
     // frame advance
     static inline void frame() {
         auto &any = signals::any();
@@ -85,20 +116,3 @@ namespace {
         any.pop_back();
     }
 }
-
-/* getter aliases */
-
-#define is_active(x)    is_on(x)
-#define is_enabled(x)   is_on(x)
-#define is_set(x)       is_on(x)
-
-#define is_inactive(x)  is_off(x)
-#define is_disabled(x)  is_off(x)
-#define is_unset(x)     is_off(x)
-
-#define is_triggered(x) is_up(x)
-#define is_raised(x)    is_up(x)
-
-#define is_released(x)  is_down(x)
-#define is_dropped(x)   is_down(x)
-
