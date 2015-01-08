@@ -20,25 +20,26 @@
 #include <bitset>
 #include <deque>
 
-struct signals {
-    using bitset = std::bitset<16384>;
-    using bitsets = std::deque<bitset>;
+struct flare {
+    typedef std::bitset<16384> set;
+    typedef std::deque<set>    sets;
+    typedef set::reference     bit;
 
-    static bitsets &any() {
-        static bitsets bs(5);
+    static sets &any() {
+        static sets bs(5);
         return bs;
     }
 
     static bool check(int t, bool then, bool now) {
-        auto &any = signals::any();
+        sets &any = flare::any();
         return any[1][t] == then && any[0][t] == now;
     }
     static bool check(int t, bool before, bool then, bool now) {
-        auto &any = signals::any();
+        sets &any = flare::any();
         return any[2][t] == before && any[1][t] == then && any[0][t] == now;
     }
     static bool check(int t, bool state_a, bool state_b, bool state_c, bool state_d, bool state_e) {
-        auto &any = signals::any();
+        sets &any = flare::any();
         return any[4][t] == state_a && any[3][t] == state_b && any[2][t] == state_c && any[1][t] == state_d && any[0][t] == state_e;
     }
 };
@@ -47,12 +48,12 @@ struct signals {
 namespace {
     // getter
     static inline bool get( int t ) {              
-        return signals::any()[0][t];
+        return flare::any()[0][t];
     }
     // setter
     static inline void set( int t, bool value ) {
-        signals::any()[1][t] = value;
-        signals::any()[0][t] = value;
+        flare::any()[1][t] = value;
+        flare::any()[0][t] = value;
     }
 }
 
@@ -60,23 +61,23 @@ namespace {
 namespace {
     // getters
     static inline bool is_off( int t ) {
-        return signals::check(t,0,0);
+        return flare::check(t,0,0);
     }
     static inline bool is_up( int t ) {
-        return signals::check(t,0,1);
+        return flare::check(t,0,1);
     }
     static inline bool is_on( int t ) {
-        return signals::check(t,1,1);
+        return flare::check(t,1,1);
     }
     static inline bool is_down( int t ) {
-        return signals::check(t,1,0);
+        return flare::check(t,1,0);
     }
 
     static inline bool is_push( int t ) {
-        return signals::check(t,0,1,0);
+        return flare::check(t,0,1,0);
     }
     static inline bool is_push2x( int t ) {
-        return signals::check(t,0,1,0,1,0);
+        return flare::check(t,0,1,0,1,0);
     }
 
     // aliases for getters
@@ -96,13 +97,13 @@ namespace {
 
     // setters
     static inline void clear( int t ) {
-        signals::any()[0][t] = 0;
+        flare::any()[0][t] = 0;
     }
     static inline void set( int t ) {
-        signals::any()[0][t] = 1;
+        flare::any()[0][t] = 1;
     }
     static inline void toggle( int t ) {
-        auto &now = signals::any()[0][t];
+        flare::bit &now = flare::any()[0][t];
         now = now ^ true;
     }
 }
@@ -111,7 +112,7 @@ namespace {
 namespace {
     // frame advance
     static inline void frame() {
-        auto &any = signals::any();
+        flare::sets &any = flare::any();
         any.push_front( any.front() );
         any.pop_back();
     }

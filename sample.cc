@@ -1,4 +1,4 @@
-#include "signals.hpp"
+#include "flare.hpp"
 
 enum {
     BUTTON,

@@ -1,6 +1,6 @@
 #include <cassert>
 #include <iostream>
-#include "signals.hpp"
+#include "flare.hpp"
 
 enum {
     MY_FLAG,

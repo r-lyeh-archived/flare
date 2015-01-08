@@ -1,12 +1,12 @@
-signals
-=======
+flare
+=====
 
-- Signals is a lightweight C++ API to deal with digital signals/logical buttons.
-- Signals is related to input, FSM, gameplay logic and other gamedev stuff.
-- Signals is tiny. Header-only.
-- Signals is cross-platform.
-- Signals is stand-alone.
-- Signals is BOOST licensed.
+- Flare is a lightweight C++ API to deal with digital signals/logical buttons.
+- Flare is related to input, FSM, gameplay logic and other gamedev stuff.
+- Flare is tiny. Header-only.
+- Flare is cross-platform.
+- Flare is stand-alone.
+- Flare is BOOST licensed.
 
 ### some theory
 ```
@@ -48,13 +48,13 @@ void toggle( int var );
 
 ### shared API
 ```c++
-// advance to next frame
+// update all signals and get ready for next frame
 void frame();
 ```
 
 ### sample
 ```c++
-#include "signals.hpp"
+#include "flare.hpp"
 
 enum {
     BUTTON,
