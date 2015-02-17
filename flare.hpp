@@ -103,8 +103,7 @@ namespace {
         flare::any()[0][t] = 1;
     }
     static inline void toggle( int t ) {
-        flare::bit &now = flare::any()[0][t];
-        now = now ^ true;
+        flare::any()[0][t] = flare::any()[0][t] ^ true;
     }
 }
 
