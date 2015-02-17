@@ -1,4 +1,4 @@
-flare
+flare <a href="https://travis-ci.org/r-lyeh/flare"><img src="https://api.travis-ci.org/r-lyeh/flare.svg?branch=master" align="right" /></a>
 =====
 
 - Flare is a lightweight C++ API to deal with digital signals/logical buttons.
