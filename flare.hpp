@@ -1,5 +1,5 @@
 // simple logic for signals
-// - rlyeh, BOOST licensed
+// - rlyeh, zlib/libpng licensed
 
 /*
     digital signals (~logic buttons) (~quadbools)
@@ -47,7 +47,7 @@ struct flare {
 // immediate API, no up/down interstates
 namespace {
     // getter
-    static inline bool get( int t ) {              
+    static inline bool get( int t ) {
         return flare::any()[0][t];
     }
     // setter

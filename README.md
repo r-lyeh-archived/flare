@@ -6,7 +6,7 @@ flare <a href="https://travis-ci.org/r-lyeh/flare"><img src="https://api.travis-
 - Flare is tiny. Header-only.
 - Flare is cross-platform.
 - Flare is stand-alone.
-- Flare is BOOST licensed.
+- Flare is zlib/libpng licensed.
 
 ### some theory
 ```
